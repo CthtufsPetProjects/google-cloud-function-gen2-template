@@ -39,3 +39,11 @@ update_requirements:
 
 pytest:
 	docker compose build app && docker compose run --rm app poetry run pytest && docker compose down -v || (docker compose down -v; exit 1)
+
+diagrams:
+	@FILES=$$(find ./docs/diagrams -type f -name "*.mmd"); \
+	if [ -z "$$FILES" ]; then \
+		echo "No diagrams to generate"; \
+	else \
+		bash generate_diagrams.sh $$FILES && echo "No new diagrams" || echo "Diagrams generated"; \
+	fi

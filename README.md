@@ -23,6 +23,16 @@ In this project, I implemented two types of handlers and three types of event is
 
 I prefer a declarative approach, and the entire infrastructure for this project is described using Terraform manifests.
 
+### Declarative diagrams
+
+I use diagrams to visualize the project's architecture and data flow. These diagrams are stored in the `docs` directory and can be generated using the `make diagrams` command.
+
+Create diagrams in the https://mermaid.live/ editor and then copy the generated code to the corresponding `.mmd` file.
+Pre-commit hook automaticaly detects changes in the `.mmd` files and generates `.svg` files.
+
+I prefer to store this generated SVGs in the README to easily understand the project structure. It helps a lot when you have a lot of services, and you need to understand the data flow quickly.
+Take a look on the section [Diagrams](#diagrams) for more details.
+
 ### Event Issuers:
 1. **HTTP Webhooks** – For triggering events based on external sources.
 2. **Queue publishing** – For sending messages to a queue for further processing by Google Cloud Functions.
@@ -126,3 +136,14 @@ Community contributions warmly welcomed! Please create pull requests or open iss
 ## License
 
 This project is distributed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Diagrams
+
+### Hourly
+![Can't load diagram.](./docs/diagrams/hourly.svg)
+
+### HTTP Request processing
+![Can't load diagram.](./docs/diagrams/http_request.svg)
+
+### CSFU processing (Check Site For Update handler)
+![Can't load diagram.](./docs/diagrams/csfu_event_handler.svg)

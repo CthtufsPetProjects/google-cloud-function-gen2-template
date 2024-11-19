@@ -13,6 +13,7 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
       - id: end-of-file-fixer
+        exclude: ^docs/diagrams/.*\.svg$
       - id: trailing-whitespace
 
   - repo: local
@@ -90,3 +91,11 @@ repos:
         entry: bash -c "poetry export --only=main --without-hashes | sha256sum | awk '{print $1}' | diff - <(sha256sum requirements.txt | awk '{print $1}') || (echo 'requirements.txt is out of date, run make update_requirements' && exit 1)"
         pass_filenames: false
         language: system
+  - repo: local
+    hooks:
+      - id: generate_diagrams
+        name: generate_diagrams
+        entry: ./generate_diagrams.sh
+        language: system
+        pass_filenames: true
+        files: ^docs/diagrams/.*\.mmd$
