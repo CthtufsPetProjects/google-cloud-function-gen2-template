@@ -35,7 +35,7 @@ infra_apply:
 	@cd infra && terraform apply
 
 generate_requirements:
-	@poetry export --only=main --without-hashes > requirements.txt
+	@poetry export --only=main --without-hashes
 
 pytest:
 	docker compose build app && docker compose run --rm app poetry run pytest && docker compose down -v || (docker compose down -v; exit 1)
