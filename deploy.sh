@@ -1,4 +1,6 @@
 #!/bin/bash
+make generate_requirements
+
 gcloud functions deploy check-website-function-http --trigger-http --entry-point=handle_http_request \
 --gen2 --allow-unauthenticated --region=${GCP_REGION} --runtime=python312 \
 --set-env-vars="SETTINGS_MODULE=app.settings,GCP_PROJECT_ID=${GCP_PROJECT_ID}" \

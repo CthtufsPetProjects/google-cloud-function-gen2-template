@@ -86,13 +86,6 @@ repos:
         pass_filenames: false
   - repo: local
     hooks:
-      - id: check_requirements
-        name: check_requirements
-        entry: bash -c "poetry export --only=main --without-hashes | sha256sum | awk '{print $1}' | diff - <(sha256sum requirements.txt | awk '{print $1}') || (echo 'requirements.txt is out of date, run make update_requirements' && exit 1)"
-        pass_filenames: false
-        language: system
-  - repo: local
-    hooks:
       - id: generate_diagrams
         name: generate_diagrams
         entry: ./generate_diagrams.sh

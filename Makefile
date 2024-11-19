@@ -34,7 +34,7 @@ infra_init:
 infra_apply:
 	@cd infra && terraform apply
 
-update_requirements:
+generate_requirements:
 	@poetry export --only=main --without-hashes > requirements.txt
 
 pytest:
