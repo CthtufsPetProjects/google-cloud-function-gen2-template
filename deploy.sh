@@ -1,5 +1,5 @@
 #!/bin/bash
-make generate_requirements
+docker compose run --rm app make generate_requirements > requirements.txt
 
 gcloud functions deploy check-website-function-http --trigger-http --entry-point=handle_http_request \
 --gen2 --allow-unauthenticated --region=${GCP_REGION} --runtime=python312 \
