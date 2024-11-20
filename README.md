@@ -94,7 +94,7 @@ To enable CI/CD pipelines, follow these steps:
 1. Add the following secrets to your GitHub Actions:
    - **GCP_PROJECT_ID** – Your Google Cloud project ID.
    - **GCP_REGION** – The Google Cloud region where the functions will be deployed.
-   - **GCP_SA_KEY** – Service Account key JSON (must be created manually in Google Cloud [Service Accounts](https://cloud.google.com/iam/docs/keys-create-delete#creating)).
+   - **GCP_SA_KEY** – Service Account key JSON (Get content for this secret from file config/ghsa.json).
 
 2. For test coverage metrics:
    - Register your project on [Codecov](https://app.codecov.io/).
@@ -111,8 +111,8 @@ To enable CI/CD pipelines, follow these steps:
    ```
 1. Deploy the infrastructure:
    ```bash
-   terraform init
-   terraform apply
+   terraform -chdir=infra init
+   terraform -chdir=infra apply
    ```
 1. Setup CI (see the [CI Setup](#ci-setup) section).
 1. Commit changes and push to your repository.
