@@ -26,7 +26,7 @@ variable "csfu_webhook_url" {
   type    = string
 }
 
-variable "csfu_webhook_secret_header" {
+variable "csfu_webhook_headers" {
   type    = string
 }
 
