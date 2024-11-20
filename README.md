@@ -104,7 +104,7 @@ To enable CI/CD pipelines, follow these steps:
 ---
 
 ## Usage
-
+1. Create Google Cloud project and get Project ID.
 1. Fill variables in the `terraform.tfvars` file.
    ```bash
    cp terraform.tfvars.template terraform.tfvars
@@ -122,9 +122,6 @@ To enable CI/CD pipelines, follow these steps:
 1. Merge PR to the `main` branch.
 1. Check the GitHub Actions tab for the CI/CD pipeline status.
 
-
-*Note:* **After the first deployment**, you might need to run `terraform apply` again to properly configure Cloud Scheduler roles.
-
 ---
 
 ## Contribution
@@ -137,13 +134,19 @@ Community contributions warmly welcomed! Please create pull requests or open iss
 
 This project is distributed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
+
 ## Diagrams
 
 ### Hourly
 ![Can't load diagram.](./docs/diagrams/hourly.svg)
 
+---
+
 ### HTTP Request processing
 ![Can't load diagram.](./docs/diagrams/http_request.svg)
+
+---
 
 ### CSFU processing (Check Site For Update handler)
 ![Can't load diagram.](./docs/diagrams/csfu_event_handler.svg)
