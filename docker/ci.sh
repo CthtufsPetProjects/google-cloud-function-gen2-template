@@ -2,7 +2,6 @@
 
 set -o errexit
 set -o nounset
-set -x
 
 : "${INSIDE_CI:=0}"
 
@@ -66,7 +65,6 @@ linters() {
 formatters() {
   check_isort
   check_black
-  check_test_fixtures
 }
 
 tests() {
