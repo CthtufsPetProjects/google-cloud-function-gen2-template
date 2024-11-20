@@ -255,6 +255,13 @@ resource "google_cloudfunctions2_function" "check_website_events" {
     }
 
     secret_environment_variables {
+      key    = "CSFU_HTTP_HEADER_NAME"
+      secret = google_secret_manager_secret.csfu_http_header_name.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
       key    = "CSFU_HTTP_HEADER_VALUE"
       secret = google_secret_manager_secret.csfu_http_header_value.secret_id
       version = "latest"
@@ -267,10 +274,51 @@ resource "google_cloudfunctions2_function" "check_website_events" {
       version = "latest"
       project_id = var.project_id
     }
+    secret_environment_variables {
+      key    = "CSFU_TARGET_TIMEOUT"
+      secret = google_secret_manager_secret.csfu_target_timeout.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
 
     secret_environment_variables {
       key    = "CSFU_WEBHOOK_URL"
       secret = google_secret_manager_secret.csfu_webhook_url.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_HEADERS"
+      secret = google_secret_manager_secret.csfu_webhook_headers.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_RETRY_ATTEMPTS"
+      secret = google_secret_manager_secret.csfu_webhook_retry_attempts.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_RETRY_WAIT"
+      secret = google_secret_manager_secret.csfu_webhook_retry_wait.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_TIMEOUT"
+      secret = google_secret_manager_secret.csfu_webhook_timeout.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_SNAPSHOTS_KEEP_LAST_DAYS"
+      secret = google_secret_manager_secret.csfu_snapshots_keep_last_days.secret_id
       version = "latest"
       project_id = var.project_id
     }
@@ -347,6 +395,13 @@ resource "google_cloudfunctions2_function" "check_website_http" {
     }
 
     secret_environment_variables {
+      key    = "CSFU_HTTP_HEADER_NAME"
+      secret = google_secret_manager_secret.csfu_http_header_name.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
       key    = "CSFU_HTTP_HEADER_VALUE"
       secret = google_secret_manager_secret.csfu_http_header_value.secret_id
       version = "latest"
@@ -359,10 +414,51 @@ resource "google_cloudfunctions2_function" "check_website_http" {
       version = "latest"
       project_id = var.project_id
     }
+    secret_environment_variables {
+      key    = "CSFU_TARGET_TIMEOUT"
+      secret = google_secret_manager_secret.csfu_target_timeout.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
 
     secret_environment_variables {
       key    = "CSFU_WEBHOOK_URL"
       secret = google_secret_manager_secret.csfu_webhook_url.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_HEADERS"
+      secret = google_secret_manager_secret.csfu_webhook_headers.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_RETRY_ATTEMPTS"
+      secret = google_secret_manager_secret.csfu_webhook_retry_attempts.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_RETRY_WAIT"
+      secret = google_secret_manager_secret.csfu_webhook_retry_wait.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_WEBHOOK_TIMEOUT"
+      secret = google_secret_manager_secret.csfu_webhook_timeout.secret_id
+      version = "latest"
+      project_id = var.project_id
+    }
+
+    secret_environment_variables {
+      key    = "CSFU_SNAPSHOTS_KEEP_LAST_DAYS"
+      secret = google_secret_manager_secret.csfu_snapshots_keep_last_days.secret_id
       version = "latest"
       project_id = var.project_id
     }
@@ -579,8 +675,8 @@ resource "google_secret_manager_secret_version" "webhook_url_version" {
   ]
 }
 
-resource "google_secret_manager_secret" "csfu_webhook_secret_header" {
-  secret_id = "CSFU_WEBHOOK_SECRET_HEADER"
+resource "google_secret_manager_secret" "csfu_webhook_headers" {
+  secret_id = "CSFU_WEBHOOK_HEADERS"
   replication {
     user_managed {
       replicas {
@@ -593,9 +689,9 @@ resource "google_secret_manager_secret" "csfu_webhook_secret_header" {
     null_resource.wait_for_one_minute,
   ]
 }
-resource "google_secret_manager_secret_version" "csfu_webhook_secret_header_version" {
-  secret      = google_secret_manager_secret.csfu_webhook_secret_header.id
-  secret_data = var.csfu_webhook_secret_header
+resource "google_secret_manager_secret_version" "csfu_webhook_headers_version" {
+  secret      = google_secret_manager_secret.csfu_webhook_headers.id
+  secret_data = var.csfu_webhook_headers
   depends_on = [
     google_project_service.secret_manager_api,
     null_resource.wait_for_one_minute,
