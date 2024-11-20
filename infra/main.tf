@@ -16,51 +16,81 @@ resource "null_resource" "wait_for_one_minute" {
 resource "google_project_service" "firebase_api" {
   project = var.project_id
   service = "firebase.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "firestore_api" {
   project = var.project_id
   service = "firestore.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "cloudrun_api" {
   project = var.project_id
   service = "run.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "cloudfunctions_api" {
   project = var.project_id
   service = "cloudfunctions.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "eventarc_api" {
   project = var.project_id
   service = "eventarc.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "cloud_build_api" {
   project = var.project_id
   service = "cloudbuild.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "artifact_registry_api" {
   project = var.project_id
   service = "artifactregistry.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "cloud_scheduler_api" {
   project = var.project_id
   service = "cloudscheduler.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "container_registry_api" {
   project = var.project_id
   service = "containerregistry.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "pubsub_api" {
   project = var.project_id
   service = "pubsub.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
   depends_on = [
     google_project_service.container_registry_api,
   ]
@@ -69,21 +99,33 @@ resource "google_project_service" "pubsub_api" {
 resource "google_project_service" "cloud_resource_management_api" {
   project = var.project_id
   service = "cloudresourcemanager.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "serviceusage_api" {
   project = var.project_id
   service = "serviceusage.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "secret_manager_api" {
   project = var.project_id
   service = "secretmanager.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "google_project_service" "compute_engine_api" {
   project = var.project_id
   service = "compute.googleapis.com"
+  timeouts {
+    create = "1m"
+  }
 }
 
 # Service account for GitHub Actions with permissions to deploy Cloud Functions
@@ -150,11 +192,11 @@ resource "google_project_iam_member" "function_sa_roles" {
 }
 
 resource "google_firestore_database" "default" {
-  name        = "(default)"
-  project     = var.project_id
-  location_id = var.region
-  type        = "FIRESTORE_NATIVE"
-
+  name            = "(default)"
+  project         = var.project_id
+  location_id     = var.region
+  type            = "FIRESTORE_NATIVE"
+  # deletion_policy = "DELETE"
   depends_on = [
     google_project_service.firestore_api,
   ]
@@ -214,8 +256,11 @@ resource "google_cloud_scheduler_job" "hourly_job" {
 
 resource "null_resource" "generate_requirements" {
   provisioner "local-exec" {
-    command = "docker compose run --rm app make generate_requirements > requirements.txt"
+    command = "docker compose run --quiet-pull --no-deps --rm -v $(pwd)/requirements.txt:/app/requirements.txt app make generate_requirements > requirements.txt"
     working_dir = "${path.module}/../"
+  }
+  triggers = {
+    always_run = timestamp()
   }
 }
 
@@ -338,11 +383,11 @@ resource "google_cloudfunctions2_function" "check_website_events" {
   }
 
   depends_on = [
+    google_project_service.cloud_build_api,
     google_project_service.cloudrun_api,
     google_project_service.cloudfunctions_api,
     google_project_service.pubsub_api,
     google_project_service.eventarc_api,
-    google_project_service.cloud_build_api,
     google_project_service.artifact_registry_api,
     google_project_service.secret_manager_api,
     google_secret_manager_secret.csfu_http_header_name,
@@ -356,6 +401,7 @@ resource "google_cloudfunctions2_function" "check_website_events" {
     google_secret_manager_secret.csfu_webhook_timeout,
     google_secret_manager_secret.db_timezone,
     google_secret_manager_secret.csfu_snapshots_keep_last_days,
+    null_resource.wait_for_one_minute,
   ]
 }
 
@@ -488,10 +534,10 @@ resource "google_cloudfunctions2_function" "check_website_http" {
     google_secret_manager_secret.csfu_webhook_timeout,
     google_secret_manager_secret.db_timezone,
     google_secret_manager_secret.csfu_snapshots_keep_last_days,
+    null_resource.wait_for_one_minute,
   ]
 }
 
-# Генерация ZIP архива автоматически
 data "archive_file" "csu_sources_archive" {
   type        = "zip"
   source_dir  = "${path.module}/../"
