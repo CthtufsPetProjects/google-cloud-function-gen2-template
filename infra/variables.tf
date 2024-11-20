@@ -71,7 +71,3 @@ variable "events_pubsub_topic" {
   type    = string
   default = "csfu-topic"
 }
-
-variable "csfu_function_name" {
-  type    = string
-}
