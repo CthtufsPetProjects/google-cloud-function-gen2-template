@@ -1,5 +1,5 @@
 #!/bin/bash
-((docker compose run --rm app make generate_requirements) > requirements.txt) && (echo "Requirements generated"; cat requirements.txt) || echo "Requirements generating failed"
+docker compose run --quiet-pull --no-deps --rm -v $(pwd)/requirements.txt:/app/requirements.txt app make generate_requirements > requirements.txt && (echo "Requirements generated"; cat requirements.txt) || echo "Requirements generating failed"
 
 gcloud functions deploy check-website-function-http --trigger-http --entry-point=handle_http_request \
 --service-account=check-site-update-function@municipal-fairs.iam.gserviceaccount.com \
