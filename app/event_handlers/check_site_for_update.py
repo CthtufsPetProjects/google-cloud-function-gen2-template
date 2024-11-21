@@ -139,10 +139,9 @@ class CheckSiteForUpdate(BaseHandler):
             )
         try:
             response.raise_for_status()
-        except requests.HTTPError as e:
-            raise requests.HTTPError(  # let's add some details about this error
-                "Can't get data for url=%s, response.content=%s",
-                target.url,
+        except requests.RequestException as e:
+            raise requests.RequestException(  # let's add some details about this error
+                f"Can't get data for url={target.url}, response.content={response.content.decode()}",
             ) from e
 
         return response.content.decode()
