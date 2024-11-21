@@ -144,6 +144,7 @@ resource "google_project_iam_member" "functions_deploy_roles" {
     "roles/cloudfunctions.developer",
     "roles/iam.serviceAccountUser",
     "roles/viewer",
+    "roles/run.admin",
   ])
 
   project = var.project_id
@@ -256,7 +257,7 @@ resource "google_cloud_scheduler_job" "hourly_job" {
 
 resource "null_resource" "generate_requirements" {
   provisioner "local-exec" {
-    command = "docker compose run --quiet-pull --no-deps --rm -v $(pwd)/requirements.txt:/app/requirements.txt app make generate_requirements > requirements.txt"
+    command = "docker compose run --quiet-pull --no-deps --rm -v $(pwd):/app app make generate_requirements"
     working_dir = "${path.module}/../"
   }
   triggers = {
