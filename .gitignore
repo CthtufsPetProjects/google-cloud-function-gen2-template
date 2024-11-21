@@ -175,3 +175,4 @@ infra/terraform.tfstate
 infra/terraform.tfstate.backup
 
 requirements.txt
+docker-compose.override.yml
