@@ -99,7 +99,6 @@ To enable CI/CD pipelines, follow these steps:
 2. For test coverage metrics:
    - Register your project on [Codecov](https://app.codecov.io/).
    - Obtain the **CODECOV_TOKEN** for your project and add it to GitHub secrets.
-   - Add the environment variable `INSIDE_CI=1` to your GitHub Actions secrets.
 
 ---
 
