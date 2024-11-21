@@ -80,9 +80,11 @@ To demonstrate this template's capabilities, I implemented the following use cas
    poetry install
    ```
 
-5. **Activate pre-commit hooks:**
+5. **Init development:**
+
+   It would create .env file and docker-compose configuration from templates and install pre-commit hooks.
    ```bash
-   make install_hooks
+   make init_development
    ```
 
 ---

@@ -19,8 +19,10 @@ linters:
 pytest:
 	docker compose build app && docker compose run --rm app poetry run pytest && docker compose down -v || (docker compose down -v; exit 1)
 
-install_hooks:
+init_development:
 	@poetry run pre-commit install --install-hooks
+	@cp ./config/.env.template ./config/.env
+	@cp docker-compose.override.yml.template docker-compose.override.yml
 
 generate_requirements:
 	@poetry export --only=main --without-hashes > requirements.txt
