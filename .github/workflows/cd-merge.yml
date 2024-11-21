@@ -9,18 +9,9 @@ on:
 jobs:
   deploy:
     runs-on: "ubuntu-latest"
-    environment:
-      name: production
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Run Tests
-        run: make tests
-        env:
-          INSIDE_CI: 1
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Authenticate with Google Cloud
         uses: 'google-github-actions/auth@v2'

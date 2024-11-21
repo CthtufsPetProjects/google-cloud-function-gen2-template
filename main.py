@@ -1,3 +1,10 @@
+import pkg_resources
+def list_installed_packages():
+    packages = pkg_resources.working_set
+    for package in sorted(packages, key=lambda x: x.project_name.lower()):
+        print(f"{package.project_name}=={package.version}")
+list_installed_packages()
+
 import typing as t
 
 import logging
