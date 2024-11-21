@@ -19,5 +19,4 @@ jobs:
       - name: Build and Test
         run: make tests
         env:
-          INSIDE_CI: 1
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
