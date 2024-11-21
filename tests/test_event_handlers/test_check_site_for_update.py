@@ -25,9 +25,10 @@ def test_send_webhook_success(mock_post):
     )
 
 
+@patch("tenacity.nap.time.sleep")
 @patch("requests.post")
 @patch("logging.Logger.exception")
-def test_send_webhook_failure(mock_logger_exception, mock_post):
+def test_send_webhook_failure(mock_logger_exception, mock_post, mock_tenacity_sleep):
     """Ensures send_webhook write a log entry on error."""
     mock_response = MagicMock(status_code=400)
     mock_response.raise_for_status.side_effect = requests.HTTPError("Error")
