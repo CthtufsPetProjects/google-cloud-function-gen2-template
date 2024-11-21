@@ -2,7 +2,7 @@
 pwd
 ls -la
 echo "\n\n\n"
-docker compose run --quiet-pull --no-deps --rm -v $(pwd)/requirements.txt:/app/requirements.txt app make generate_requirements && (echo "Requirements generated"; cat requirements.txt) || echo "Requirements generating failed"
+docker compose run --quiet-pull --no-deps --rm -v $(pwd):/app app make generate_requirements && (echo "Requirements generated"; cat requirements.txt) || echo "Requirements generating failed"
 echo "\n\n\n"
 ls -la
 echo "\n\n\n"
