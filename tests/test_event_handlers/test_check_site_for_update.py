@@ -166,7 +166,7 @@ def test_checksiteforupdate_call_not_found(mock_requests_session, website_conten
     mock_session = mock_requests_session.return_value.__enter__.return_value
     mock_session.get.return_value.status_code = 404
     mock_session.get.return_value.content = None
-    mock_session.get.return_value.raise_for_status.site_effect = requests.HTTPError()
+    mock_session.get.return_value.raise_for_status.side_effect = requests.HTTPError()
     settings.CSFU_PROXY = None
     CheckSiteForUpdate({}, Context())()
     mock_session.get.assert_has_calls(
