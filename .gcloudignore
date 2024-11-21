@@ -15,15 +15,4 @@
 
 node_modules
 #!include:.gitignore
-
-# docker/
-# htmlcov/
-# *test.py
-# test*.py
-# deploy.*
-# infra/
-# tests/
-# poetry.lock
-# pyproject.toml
-# docker-compose*
-# Makefile
+!requirements.txt
