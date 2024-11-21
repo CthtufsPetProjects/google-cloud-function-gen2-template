@@ -68,8 +68,8 @@ class CheckSiteForUpdate(BaseHandler):
 
     @retry(
         retry=retry_if_exception_type(requests.HTTPError),
-        stop=stop_after_attempt(5),  # settings.CSFU_WEBHOOK_RETRY_ATTEMPTS),
-        wait=wait_fixed(5),  # settings.CSFU_WEBHOOK_RETRY_WAIT),
+        stop=stop_after_attempt(settings.CSFU_WEBHOOK_RETRY_ATTEMPTS),
+        wait=wait_fixed(settings.CSFU_WEBHOOK_RETRY_WAIT),
         after=after_log(logger, logging.WARNING),
         reraise=True,
     )
@@ -83,7 +83,7 @@ class CheckSiteForUpdate(BaseHandler):
             json=data,
             timeout=settings.CSFU_WEBHOOK_TIMEOUT,
         )
-        # Log response from webhook
+        logger.info("Webhook response with status=%s and content=%s", response.status_code, response.content)
         try:
             response.raise_for_status()
         except requests.HTTPError:
