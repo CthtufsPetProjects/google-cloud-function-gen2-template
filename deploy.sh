@@ -1,8 +1,11 @@
 #!/bin/bash
 pwd
-docker compose run --quiet-pull --no-deps --rm -v $(pwd)/requirements.txt:/app/requirements.txt app make generate_requirements > requirements.txt && (echo "Requirements generated"; cat requirements.txt) || echo "Requirements generating failed"
 ls -la
-
+echo "\n\n\n"
+docker compose run --quiet-pull --no-deps --rm -v $(pwd)/requirements.txt:/app/requirements.txt app make generate_requirements && (echo "Requirements generated"; cat requirements.txt) || echo "Requirements generating failed"
+echo "\n\n\n"
+ls -la
+echo "\n\n\n"
 gcloud functions deploy check-website-function-http --trigger-http --entry-point=handle_http_request \
 --service-account=check-site-update-function@municipal-fairs.iam.gserviceaccount.com \
 --gen2 --allow-unauthenticated --region=${GCP_REGION} --runtime=python312 --verbosity=debug \

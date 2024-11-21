@@ -23,7 +23,7 @@ install_hooks:
 	@poetry run pre-commit install --install-hooks
 
 generate_requirements:
-	@poetry export --only=main --without-hashes
+	@poetry export --only=main --without-hashes > requirements.txt
 
 diagrams:
 	@FILES=$$(find ./docs/diagrams -type f -name "*.mmd"); \
