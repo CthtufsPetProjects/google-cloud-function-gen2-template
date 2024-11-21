@@ -18,7 +18,6 @@ jobs:
       - name: Run Tests
         run: make tests
         env:
-          INSIDE_CI: 1
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Authenticate with Google Cloud

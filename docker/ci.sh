@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-: "${INSIDE_CI:=0}"
+: "${CODECOV_TOKEN:=}"
 
 ACTION="default"
 for i in "$@"
@@ -69,7 +69,7 @@ formatters() {
 
 tests() {
   poetry run pytest -vv --durations=10
-  if [ "$INSIDE_CI" = 1 ]; then
+  if [ -n "$CODECOV_TOKEN" ]; then
     # Report coverage. Must be executed after pytest
     echo "Run codecov"
     poetry run codecovcli do-upload --report-type test_results --file junit.xml
