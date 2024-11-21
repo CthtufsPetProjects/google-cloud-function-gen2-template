@@ -17,7 +17,7 @@ resource "google_project_service" "firebase_api" {
   project = var.project_id
   service = "firebase.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -25,7 +25,7 @@ resource "google_project_service" "firestore_api" {
   project = var.project_id
   service = "firestore.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -33,7 +33,7 @@ resource "google_project_service" "cloudrun_api" {
   project = var.project_id
   service = "run.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -41,7 +41,7 @@ resource "google_project_service" "cloudfunctions_api" {
   project = var.project_id
   service = "cloudfunctions.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -49,7 +49,7 @@ resource "google_project_service" "eventarc_api" {
   project = var.project_id
   service = "eventarc.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -57,7 +57,7 @@ resource "google_project_service" "cloud_build_api" {
   project = var.project_id
   service = "cloudbuild.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -65,7 +65,7 @@ resource "google_project_service" "artifact_registry_api" {
   project = var.project_id
   service = "artifactregistry.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -73,7 +73,7 @@ resource "google_project_service" "cloud_scheduler_api" {
   project = var.project_id
   service = "cloudscheduler.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -81,7 +81,7 @@ resource "google_project_service" "container_registry_api" {
   project = var.project_id
   service = "containerregistry.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -89,7 +89,7 @@ resource "google_project_service" "pubsub_api" {
   project = var.project_id
   service = "pubsub.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
   depends_on = [
     google_project_service.container_registry_api,
@@ -100,7 +100,7 @@ resource "google_project_service" "cloud_resource_management_api" {
   project = var.project_id
   service = "cloudresourcemanager.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -108,7 +108,7 @@ resource "google_project_service" "serviceusage_api" {
   project = var.project_id
   service = "serviceusage.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -116,7 +116,7 @@ resource "google_project_service" "secret_manager_api" {
   project = var.project_id
   service = "secretmanager.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -124,7 +124,7 @@ resource "google_project_service" "compute_engine_api" {
   project = var.project_id
   service = "compute.googleapis.com"
   timeouts {
-    create = "1m"
+    create = "5m"
   }
 }
 
@@ -197,7 +197,7 @@ resource "google_firestore_database" "default" {
   project         = var.project_id
   location_id     = var.region
   type            = "FIRESTORE_NATIVE"
-  # deletion_policy = "DELETE"
+  deletion_policy = "DELETE"
   depends_on = [
     google_project_service.firestore_api,
   ]
